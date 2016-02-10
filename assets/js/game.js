@@ -1,5 +1,6 @@
 var game = {
     start: function(snake, treat, score) {
+		game.stop();
         this.score = score;
         this.paused = false;
         this.blockSize = 10;
@@ -184,7 +185,6 @@ function save_game() {
             "score": game.score
         }
     };
-    console.log(msg);
     window.parent.postMessage(msg, "*");
 }
 
@@ -198,6 +198,7 @@ function load_game() {
 window.addEventListener("message", function(evt) {
     if (evt.data.messageType === "LOAD") {
         startGame(evt.data.gameState.snake, evt.data.gameState.treat, evt.data.gameState.score);
+		pauseGame();
     }
 });
 
