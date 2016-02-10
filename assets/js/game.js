@@ -1,6 +1,7 @@
 var game = {
     start: function(snake, treat, score) {
         this.score = score;
+        this.paused = false;
         this.blockSize = 10;
         this.area = $('#area')[0];
         this.context = this.area.getContext("2d");
@@ -8,11 +9,11 @@ var game = {
         this.treat = new Treat(this.blockSize, "red", this.area.width, this.area.height, treat);
         this.interval = setInterval(updateArea, 200);
         $('#start')[0].value = "End game";
-        $('#start')[0].onclick = this.stop;
+        $('#start')[0].onclick = game.stop;
         window.addEventListener('keydown', function(e) {
             switch (e.keyCode) {
                 case 37: case 38: case 39: case 40:
-                    game.player.turn(e.keyCode);
+                    if (!game.paused) game.player.turn(e.keyCode);
                     break;
             }
         });
@@ -28,11 +29,11 @@ var game = {
     stop: function() {
         clearInterval(game.interval);
         $('#start')[0].value = "New Game";
-        $('#start')[0].onclick = startGame;//function() {$('#pause')[0].disabled = false; game.start();};
+        $('#start')[0].onclick = startGame;
         $('#pause')[0].value = "Pause game";
         $('#pause')[0].disabled = true;
         $('#save')[0].disabled = true;
-        submit_score(this.score);
+        submit_score(game.score);
         return 1;
     },
     newTreat: function() {
@@ -47,15 +48,16 @@ function startGame(snake, treat, score) {
 }
 
 function pauseGame() {
-    var button = $('#pause')[0];
-    if (button.value === "Pause game") {
+    if (!game.paused) {
         clearInterval(game.interval);
         $('#save')[0].disabled = false;
-        button.value = "Resume";
+        $('#pause')[0].value = "Resume";
+        game.paused = true;
     } else {
         game.interval = setInterval(updateArea, 200);
         $('#save')[0].disabled = true;
-        button.value = "Pause game";
+        $('#pause')[0].value = "Pause game";
+        game.paused = false;
     }
 }
 
@@ -173,15 +175,16 @@ function submit_score(score) {
     window.parent.postMessage(msg, "*");
 }
 
-function save_game(snake, treat, score) {
+function save_game() {
     var msg = {
         "messageType": "SAVE",
         "gameState": {
-            "snake": snake,
-            "treat": treat,
-            "score": score
+            "snake": game.player.blocks,
+            "treat": game.treat.getCord(),
+            "score": game.score
         }
     };
+    console.log(msg);
     window.postMessage(msg, "*");
 }
 
