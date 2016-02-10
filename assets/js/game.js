@@ -185,14 +185,14 @@ function save_game() {
         }
     };
     console.log(msg);
-    window.postMessage(msg, "*");
+    window.parent.postMessage(msg, "*");
 }
 
 function load_game() {
     var msg = {
         "messageType": "LOAD_REQUEST"
     };
-    window.postMessage(msg, "*");
+    window.parent.postMessage(msg, "*");
 }
 
 window.addEventListener("message", function(evt) {
