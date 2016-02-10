@@ -19,7 +19,7 @@ var game = {
         });
     },
     update: function() {
-        this.player.move();
+        if (!game.paused) this.player.move();
         this.context.clearRect(0, 0, area.width, area.height);
         this.player.draw();
         this.treat.draw(this.context);
@@ -203,6 +203,7 @@ window.addEventListener("message", function(evt) {
     if (evt.data.messageType === "LOAD") {
         startGame(evt.data.gameState.snake, evt.data.gameState.treat, evt.data.gameState.score, evt.data.gameState.direction);
 		pauseGame();
+		game.update();
     }
 });
 
