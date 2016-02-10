@@ -1,11 +1,11 @@
 var game = {
-    start: function(snake, treat, score) {
+    start: function(snake, treat, score, dir) {
         this.score = score;
         this.paused = false;
         this.blockSize = 10;
         this.area = $('#area')[0];
         this.context = this.area.getContext("2d");
-        this.player = new Snake(this.blockSize, "#0033cc", snake);
+        this.player = new Snake(this.blockSize, "#0033cc", snake, dir);
         this.treat = new Treat(this.blockSize, "red", this.area.width, this.area.height, treat);
         this.interval = setInterval(updateArea, 200);
         $('#start')[0].value = "End game";
@@ -42,8 +42,8 @@ var game = {
     },
 };
 
-function startGame(snake, treat, score) {
-    game.start(typeof snake !== 'undefined' ? snake : [], typeof treat !== 'undefined' ? treat : [], typeof score !== 'undefined' ? score : 0);
+function startGame(snake, treat, score, dir) {
+    game.start(typeof snake !== 'undefined' ? snake : [[10, 8], [9, 8], [8, 8]], typeof treat !== 'undefined' ? treat : [], typeof score !== 'undefined' ? score : 0, typeof dir !== 'undefined' ? dir : 39);
     $('#pause')[0].disabled = false;
 	$('#load')[0].disabled = true;
 	
@@ -77,11 +77,11 @@ function Treat(blockSize, color, w, h, c) {
     };
 }
 
-function Snake(blockSize, color, blocks) {
+function Snake(blockSize, color, blocks, dir) {
     this.blockSize = blockSize;
-    this.blocks = blocks.length > 0 ? blocks : [[10, 8], [9, 8], [8, 8]];
-    this.direction = 39;
-    this.nextDirection = 39;
+    this.blocks = blocks;
+    this.direction = dir;
+    this.nextDirection = dir;
 
     this.move = function() {
         this.direction = this.nextDirection;
@@ -185,7 +185,8 @@ function save_game() {
         "gameState": {
             "snake": game.player.blocks,
             "treat": game.treat.getCord(),
-            "score": game.score
+            "score": game.score,
+			"direction": game.player.direction,
         }
     };
     window.parent.postMessage(msg, "*");
@@ -200,7 +201,7 @@ function load_game() {
 
 window.addEventListener("message", function(evt) {
     if (evt.data.messageType === "LOAD") {
-        startGame(evt.data.gameState.snake, evt.data.gameState.treat, evt.data.gameState.score);
+        startGame(evt.data.gameState.snake, evt.data.gameState.treat, evt.data.gameState.score, evt.data.gameState.direction);
 		pauseGame();
     }
 });
