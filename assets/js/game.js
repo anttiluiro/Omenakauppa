@@ -45,6 +45,8 @@ var game = {
 function startGame(snake, treat, score) {
     game.start(typeof snake !== 'undefined' ? snake : [], typeof treat !== 'undefined' ? treat : [], typeof score !== 'undefined' ? score : 0);
     $('#pause')[0].disabled = false;
+	$('#load')[0].disabled = true;
+	
 }
 
 function pauseGame() {
