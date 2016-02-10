@@ -1,6 +1,5 @@
 var game = {
     start: function(snake, treat, score) {
-		game.stop();
         this.score = score;
         this.paused = false;
         this.blockSize = 10;
