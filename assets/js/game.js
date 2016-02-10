@@ -51,11 +51,13 @@ function pauseGame() {
     if (!game.paused) {
         clearInterval(game.interval);
         $('#save')[0].disabled = false;
+		$('#load')[0].disabled = false;
         $('#pause')[0].value = "Resume";
         game.paused = true;
     } else {
         game.interval = setInterval(updateArea, 200);
         $('#save')[0].disabled = true;
+		$('#load')[0].disabled = true;
         $('#pause')[0].value = "Pause game";
         game.paused = false;
     }
