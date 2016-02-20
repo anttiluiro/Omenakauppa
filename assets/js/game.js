@@ -46,7 +46,6 @@ function startGame(snake, treat, score, dir) {
     game.start(typeof snake !== 'undefined' ? snake : [[10, 8], [9, 8], [8, 8]], typeof treat !== 'undefined' ? treat : [], typeof score !== 'undefined' ? score : 0, typeof dir !== 'undefined' ? dir : 39);
     $('#pause')[0].disabled = false;
 	$('#load')[0].disabled = true;
-	
 }
 
 function pauseGame() {
@@ -199,6 +198,16 @@ function load_game() {
     window.parent.postMessage(msg, "*");
 }
 
+function settings() {
+	var msg = {
+		"messageType": "SETTING",
+		"options": {
+			"width": 200,
+			"height": 400,	
+		}
+	};
+	window.parent.postMessage(msg, "*")
+}
 window.addEventListener("message", function(evt) {
     if (evt.data.messageType === "LOAD") {
         startGame(evt.data.gameState.snake, evt.data.gameState.treat, evt.data.gameState.score, evt.data.gameState.direction);
