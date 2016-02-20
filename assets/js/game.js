@@ -202,8 +202,8 @@ function settings() {
 	var msg = {
 		"messageType": "SETTING",
 		"options": {
-			"width": 300,
-			"height": 500,	
+			"width": 250,
+			"height": 450,	
 		}
 	};
 	window.parent.postMessage(msg, "*")
