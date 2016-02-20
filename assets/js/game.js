@@ -203,7 +203,7 @@ function settings() {
 		"messageType": "SETTING",
 		"options": {
 			"width": 245,
-			"height": 435,	
+			"height": 450,	
 		}
 	};
 	window.parent.postMessage(msg, "*")
