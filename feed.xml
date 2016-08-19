@@ -1,7 +1,6 @@
-<?xml version="1.0"?>
-<rss version="2.0"
-xmlns:g="http://base.google.com/ns/1.0">
-<channel>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:g="http://base.google.com/ns/1.0">
+<title>Test Store</title>
+<link rel="self" href="http://www.example.com"/>
 <entry>
 <title>
 <![CDATA[ Vestfrost VKG571 SORT ]]>
@@ -34,5 +33,3 @@ Cat1 > Cat2 > Cat3 > Tada
 <g:gtin>12340</g:gtin>
 <g:google_product_category>1000</g:google_product_category>
 </entry>
-</channel>
-</rss>
