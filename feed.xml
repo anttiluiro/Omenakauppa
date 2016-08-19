@@ -1,4 +1,7 @@
 <?xml version="1.0"?>
+<rss version="2.0"
+xmlns:g="http://base.google.com/ns/1.0">
+<channel>
 <entry>
 <title>
 <![CDATA[ Vestfrost VKG571 SORT ]]>
@@ -31,3 +34,5 @@ Cat1 > Cat2 > Cat3 > Tada
 <g:gtin>12340</g:gtin>
 <g:google_product_category>1000</g:google_product_category>
 </entry>
+</channel>
+</rss>
